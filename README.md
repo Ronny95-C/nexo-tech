@@ -1,24 +1,60 @@
-# Nexo Store — Proyecto Base
+# Nexo Tech — Tienda Oficial
 
-Proyecto base entregado a los estudiantes para el desarrollo del curso.
+**Proyecto Académico:** Desarrollo Web  
+**Entrega:** Sprint 1 — Primera Versión Visual  
+**Estudiante / Desarrollador:** Ronny Carrasco
+**Año:** 2026  
 
-## Estado inicial
+---
 
-La estructura general del sistema ya se encuentra creada. En el **Sprint 1** únicamente se trabajará sobre la página de inicio. Los demás módulos serán desarrollados en los próximos sprints.
+##  Descripción del Proyecto
 
-## Sprint 1
+**Nexo Tech** es un e-commerce especializado en la comercialización de hardware, componentes de electrónica, kits de robótica educativa, sensores para desarrollo *maker* y periféricos de alto rendimiento en Uruguay. 
 
-Durante este sprint deberán:
+El objetivo de la plataforma es brindar a entusiastas de la tecnología, estudiantes, educadores y creadores de proyectos (*makers*) una tienda con una interfaz moderna, limpia, ágil e intuitiva.
 
-- Definir la temática y el público objetivo.
-- Crear la identidad visual del sitio (nombre, colores y tipografías).
-- Personalizar el hero principal.
-- Incorporar tarjetas estáticas de productos o servicios.
-- Utilizar HTML semántico y Bootstrap.
-- Garantizar un diseño responsive.
-- Agregar textos alternativos a las imágenes.
-- Mantener la navegación entre todas las páginas del proyecto.
+---
 
-## Ejecución
+##  Temática y Público Objetivo
 
-Abrir el proyecto utilizando **Live Server** desde Visual Studio Code.
+* **Temática:** Hardware, robótica, componentes de electrónica y periféricos informáticos.
+* **Makers y Hobbistas:** Personas interesadas en la electrónica, DIY (*Do It Yourself*), domótica y prototipado.
+* **Estudiantes y Educadores:** Estudiantes de ingeniería, informática, electrónica y robótica que buscan kits educativos y componentes confiables.
+* **Gamers y Usuarios Avanzados:** Usuarios que buscan periféricos y accesorios informáticos de alta calidad.
+
+---
+
+##  Categorías de Productos
+
+1. **Kits de Robótica y Arduino:** Placas de desarrollo, protoboards y sets para principiantes.
+2. **Sensores y Componentes:** Servomotores, sensores ultrasónicos, módulos de comunicación y accesorios.
+3. **Periféricos Gamer:** Teclados mecánicos, mouses, auriculares y accesorios.
+4. **Audio y Gadgets:** Sistemas de audio y accesorios informáticos.
+
+---
+
+##  Tecnologías Utilizadas
+
+* **HTML5:** Estructura de la aplicación utilizando etiquetas semánticas (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`).
+* **CSS3:** Personalización de estilos, paleta de colores, tipografías y sombras en `css/styles.css`.
+* **Bootstrap 5.3.3:** Framework de diseño responsivo para maquetado de grid, navegación adaptativa, tarjetas y modales.
+* **Git & GitHub:** Control de versiones con historial de commits progresivos y descriptivos.
+
+---
+
+## Estructura del Proyecto
+
+```text
+nexo-tech/
+├── assets/             # Imágenes y recursos multimedia
+├── css/
+│   └── styles.css      # Estilos personalizados de la tienda
+├── js/
+│   └── base.js         # Scripts básicos de interacción y avisos
+├── admin.html          # Panel de administración (Bloqueado - Sprint futuro)
+├── carrito.html        # Carrito de compras (Bloqueado - Sprint futuro)
+├── catalogo.html       # Catálogo de productos (Bloqueado - Sprint futuro)
+├── index.html          # Página principal del proyecto
+├── perfil.html         # Perfil de usuario (Bloqueado - Sprint futuro)
+├── producto.html       # Detalle de producto (Bloqueado - Sprint futuro)
+└── README.md           # Documentación general del proyecto

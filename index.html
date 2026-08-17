@@ -1,87 +1,115 @@
 <!doctype html>
-<html lang='es'>
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
     <title>Nexo Tech | Tienda Oficial</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body class='d-flex flex-column min-vh-100' data-page='inicio'>
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html"><span class="brand-mark">N</span> Nexo Tech</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span
-                    class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" data-page="inicio" href="index.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="catalogo" href="catalogo.html">Catálogo</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="producto" href="producto.html">Producto</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="carrito" href="carrito.html">Carrito</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
-                    <li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
-                </ul>
-                <button class="btn btn-outline-light btn-sm" id="btnLoginPlaceholder">Ingresar</button>
+<body class="d-flex flex-column min-vh-100" data-page="inicio">
+
+    <!-- Navegación Principal -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html">
+                    <span class="brand-mark text-primary me-2 fs-4">N</span> Nexo Tech
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Abrir menú de navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" data-page="inicio" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" data-page="catalogo" href="catalogo.html">Catálogo</a></li>
+                        <li class="nav-item"><a class="nav-link" data-page="producto" href="producto.html">Producto</a></li>
+                        <li class="nav-item"><a class="nav-link" data-page="carrito" href="carrito.html">Carrito</a></li>
+                        <li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
+                        <li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-3">
+                        <a href="carrito.html" class="btn btn-outline-light position-relative btn-sm" aria-label="Ver carrito">
+                            🛒
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                                0
+                            </span>
+                        </a>
+                        <button class="btn btn-primary btn-sm" id="btnLoginPlaceholder">Ingresar</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
-    <main class='flex-grow-1'>
-        <section class="hero">
-            <div class="container py-5">
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="flex-grow-1">
+        
+        <!-- Hero Section -->
+        <section class="hero py-5 bg-dark text-white border-bottom border-secondary border-opacity-25">
+            <div class="container py-lg-4">
                 <div class="row align-items-center g-5">
                     <div class="col-lg-6">
-                        <span class="badge rounded-pill bg-dark mb-3 px-3 py-2">🤖 Hardware, Robótica & Periféricos</span>
-                        <h1 class="display-4 fw-bold">Tecnología y componentes para tus proyectos.</h1>
-                        <p class="lead text-secondary">Desde partes y kits de robótica hasta periféricos de alto rendimiento. Todo lo que necesitás para crear, programar y potenciar tu espacio.</p>
+                        <span class="badge rounded-pill bg-primary mb-3 px-3 py-2 text-uppercase tracking-wide">🤖 Hardware, Robótica & Periféricos</span>
+                        <h1 class="display-4 fw-bold">Tecnología y componentes para tus proyectos</h1>
+                        <p class="lead text-light opacity-75">Desde partes y kits de robótica hasta periféricos de alto rendimiento. Todo lo que necesitas para crear, programar y potenciar tu espacio.</p>
                         <div class="d-flex gap-2 flex-wrap mb-4">
                             <a class="btn btn-primary btn-lg" href="catalogo.html">Ver catálogo completo</a>
-                            <a class="btn btn-outline-dark btn-lg" href="#destacados">Productos destacados</a>
+                            <a class="btn btn-outline-light btn-lg" href="#destacados">Productos destacados</a>
                         </div>
-                        <div class="row g-3 mt-2">
+                        <div class="row g-3 mt-2 border-top border-secondary border-opacity-25 pt-3">
                             <div class="col-4">
-                                <div class="metric"><strong>Envío Gratis</strong><span>En compras > $15.000</span></div>
+                                <div class="metric">
+                                    <strong class="d-block text-white fs-5">Envío Gratis</strong>
+                                    <span class="d-block small text-muted">En compras &gt; $15.000</span>
+                                </div>
                             </div>
                             <div class="col-4">
-                                <div class="metric"><strong>12 Cuotas</strong><span>Sin interés</span></div>
+                                <div class="metric">
+                                    <strong class="d-block text-white fs-5">12 Cuotas</strong>
+                                    <span class="d-block small text-muted">Sin interés</span>
+                                </div>
                             </div>
                             <div class="col-4">
-                                <div class="metric"><strong>Soporte Maker</strong><span>Asesoramiento técnico</span></div>
+                                <div class="metric">
+                                    <strong class="d-block text-white fs-5">Soporte Maker</strong>
+                                    <span class="d-block small text-muted">Asesoramiento técnico</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="hero-card">
-                            <div class="hero-card-header">
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                                <span class="dot"></span>
-                            </div>
+                        <div class="hero-card position-relative overflow-hidden rounded-4 shadow-lg border border-secondary border-opacity-25">
                             <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
-                                alt="Placa electrónica y componentes de robótica Nexo Tech">
-                            <div class="floating-card">
-                                <span>🚀 Especial Maker</span>
+                                 class="img-fluid w-100 object-fit-cover" 
+                                 alt="Placa electrónica y componentes de robótica Nexo Tech">
+                            <div class="floating-card p-3 bg-dark text-white rounded-3 shadow-lg position-absolute bottom-0 start-0 m-3 border border-secondary">
+                                <span class="d-block text-primary fw-bold small">🚀 Especial Maker</span>
                                 <strong>Kits de Robótica y Sensores</strong>
-                                <small>Ideal para proyectos educativos y prototipos</small>
+                                <small class="d-block text-muted">Ideal para proyectos educativos y prototipos</small>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-            <section class="container py-5" id="destacados">
-            <div class="section-heading mb-4">
+
+        <!-- Productos Destacados -->
+        <section class="container py-5" id="destacados">
+            <div class="d-flex justify-content-between align-items-end mb-4">
                 <div>
-                    <span class="eyebrow text-primary fw-bold text-uppercase">Catálogo Seleccionado</span>
-                    <h2 class="fw-bold">Productos Destacados</h2>
+                    <span class="eyebrow text-primary fw-bold text-uppercase d-block small">Catálogo Seleccionado</span>
+                    <h2 class="fw-bold mb-0">Productos Destacados</h2>
                 </div>
                 <a href="catalogo.html" class="btn btn-outline-primary btn-sm">Ver todos</a>
             </div>
             
             <div class="row g-4">
-                <!-- Producto 1: Robótica -->
+                <!-- Producto 1 -->
                 <div class="col-md-6 col-xl-3">
                     <article class="card h-100 shadow-sm border-0 product-card">
                         <img src="https://images.unsplash.com/photo-1553406830-ef2513450d76?auto=format&fit=crop&w=600&q=80" 
@@ -92,14 +120,14 @@
                             <h3 class="h5 card-title fw-bold">Kit Inicial Robótica Arduino Uno R3</h3>
                             <p class="card-text text-secondary small flex-grow-1">Incluye placa Arduino Uno, protoboard, leds, resistencias, sensores y cables para prototipado.</p>
                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                <strong class="fs-5 text-dark">$ 18.500</strong>
+                                <strong class="fs-5 text-dark">$ 1.890</strong>
                                 <a href="producto.html" class="btn btn-primary btn-sm">Ver producto</a>
                             </div>
                         </div>
                     </article>
                 </div>
 
-                <!-- Producto 2: Robótica / Componentes -->
+                <!-- Producto 2 -->
                 <div class="col-md-6 col-xl-3">
                     <article class="card h-100 shadow-sm border-0 product-card">
                         <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" 
@@ -110,14 +138,14 @@
                             <h3 class="h5 card-title fw-bold">Set Servomotores + Sensor HC-SR04</h3>
                             <p class="card-text text-secondary small flex-grow-1">Kit de 4 servomotores SG90 y 2 sensores ultrasónicos ideales para brazos robóticos y evasores de obstáculos.</p>
                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                <strong class="fs-5 text-dark">$ 6.800</strong>
+                                <strong class="fs-5 text-dark">$ 850</strong>
                                 <a href="producto.html" class="btn btn-primary btn-sm">Ver producto</a>
                             </div>
                         </div>
                     </article>
                 </div>
 
-                <!-- Producto 3: Periféricos -->
+                <!-- Producto 3 -->
                 <div class="col-md-6 col-xl-3">
                     <article class="card h-100 shadow-sm border-0 product-card">
                         <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80" 
@@ -128,14 +156,14 @@
                             <h3 class="h5 card-title fw-bold">Teclado Mecánico RGB Switch Red</h3>
                             <p class="card-text text-secondary small flex-grow-1">Teclado mecánico compacto con iluminación RGB personalizable y switches lineales para tipeo rápido.</p>
                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                <strong class="fs-5 text-dark">$ 24.900</strong>
+                                <strong class="fs-5 text-dark">$ 2.490</strong>
                                 <a href="producto.html" class="btn btn-primary btn-sm">Ver producto</a>
                             </div>
                         </div>
                     </article>
                 </div>
 
-                <!-- Producto 4: Audio -->
+                <!-- Producto 4 -->
                 <div class="col-md-6 col-xl-3">
                     <article class="card h-100 shadow-sm border-0 product-card">
                         <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80" 
@@ -146,7 +174,7 @@
                             <h3 class="h5 card-title fw-bold">Auriculares Gamer Wireless 7.1</h3>
                             <p class="card-text text-secondary small flex-grow-1">Sonido envolvente 7.1, micrófono con cancelación de ruido y batería de hasta 30 horas de autonomía.</p>
                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                <strong class="fs-5 text-dark">$ 32.000</strong>
+                                <strong class="fs-5 text-dark">$ 3.290</strong>
                                 <a href="producto.html" class="btn btn-primary btn-sm">Ver producto</a>
                             </div>
                         </div>
@@ -154,171 +182,94 @@
                 </div>
             </div>
         </section>
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-6">
-                        <span class="badge rounded-pill text-bg-warning mb-3">Sprint 1 · Semanas 1 a 4</span>
-                        <h1 class="display-4 fw-bold">Tecnología útil, simple y cerca tuyo.</h1>
-                        <p class="lead text-secondary">Esta es la base común del proyecto. En el primer sprint deberán
-                            completar y personalizar únicamente la página de inicio.</p>
-                        <div class="d-flex gap-2 flex-wrap"><a class="btn btn-primary btn-lg"
-                                href="catalogo.html">Explorar productos</a><button class="btn btn-outline-dark btn-lg"
-                                id="btnProjectInfo">Ver alcance</button></div>
-                        <div class="row g-3 mt-4">
-                            <div class="col-4">
-                                <div class="metric"><strong>HTML</strong><span>Semántico</span></div>
-                            </div>
-                            <div class="col-4">
-                                <div class="metric"><strong>CSS</strong><span>Responsive</span></div>
-                            </div>
-                            <div class="col-4">
-                                <div class="metric"><strong>Bootstrap</strong><span>Componentes</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="hero-card">
-                            <div class="hero-card-header"><span class="dot"></span><span class="dot"></span><span
-                                    class="dot"></span></div>
-                            <img src="https://images.unsplash.com/photo-1523206489230-c012c64b2b48?auto=format&fit=crop&w=1200&q=80"
-                                alt="Dispositivos tecnológicos">
-                            <div class="floating-card"><span>🚧 Componente a personalizar</span><strong>Producto
-                                    destacado</strong><small>Cambiar contenido e identidad visual.</small></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="container py-5">
-            <div class="section-heading">
-                <div><span class="eyebrow">Sprint 1</span>
-                    <h2 class="fw-bold">Productos destacados estáticos</h2>
-                </div><span class="badge text-bg-light border">Sin JavaScript</span>
-            </div>
-            <div class="student-task">
-                <div class="student-task-number">1</div>
-                <div>
-                    <h3 class="h5">Actividad</h3>
-                    <p class="mb-0">Construir entre tres y cuatro tarjetas con Bootstrap. En esta etapa no deben
-                        generarse dinámicamente.</p>
-                </div>
-            </div>
-            <div class="row g-4 mt-1">
-                <div class="col-md-6 col-xl-3">
-                    <article class="placeholder-product">
-                        <div class="placeholder-image">Imagen del producto</div>
-                        <div class="p-3"><span class="eyebrow">Categoría</span>
-                            <h3 class="h5 mt-2">Producto de ejemplo</h3>
-                            <p class="text-secondary small">Descripción a sustituir por el equipo.</p>
-                            <div class="d-flex justify-content-between align-items-center"><strong>$ 0</strong><button
-                                    class="btn btn-primary btn-sm" disabled>Ver producto</button></div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <article class="placeholder-product">
-                        <div class="placeholder-image">Imagen del producto</div>
-                        <div class="p-3"><span class="eyebrow">Categoría</span>
-                            <h3 class="h5 mt-2">Producto de ejemplo</h3>
-                            <p class="text-secondary small">Descripción a sustituir por el equipo.</p>
-                            <div class="d-flex justify-content-between align-items-center"><strong>$ 0</strong><button
-                                    class="btn btn-primary btn-sm" disabled>Ver producto</button></div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <article class="placeholder-product">
-                        <div class="placeholder-image">Imagen del producto</div>
-                        <div class="p-3"><span class="eyebrow">Categoría</span>
-                            <h3 class="h5 mt-2">Producto de ejemplo</h3>
-                            <p class="text-secondary small">Descripción a sustituir por el equipo.</p>
-                            <div class="d-flex justify-content-between align-items-center"><strong>$ 0</strong><button
-                                    class="btn btn-primary btn-sm" disabled>Ver producto</button></div>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-md-6 col-xl-3">
-                    <article class="placeholder-product">
-                        <div class="placeholder-image">Imagen del producto</div>
-                        <div class="p-3"><span class="eyebrow">Categoría</span>
-                            <h3 class="h5 mt-2">Producto de ejemplo</h3>
-                            <p class="text-secondary small">Descripción a sustituir por el equipo.</p>
-                            <div class="d-flex justify-content-between align-items-center"><strong>$ 0</strong><button
-                                    class="btn btn-primary btn-sm" disabled>Ver producto</button></div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-        <section class="benefits py-5">
+
+        <!-- Beneficios -->
+        <section class="benefits py-5 bg-light border-top border-bottom">
             <div class="container">
                 <div class="row g-4 text-center">
                     <div class="col-md-4">
-                        <div class="benefit-card"><span>🎨</span>
-                            <h3>Identidad visual</h3>
-                            <p>Colores, tipografías y logotipo.</p>
+                        <div class="benefit-card p-4 rounded-3 bg-white shadow-sm h-100">
+                            <span class="fs-1 d-block mb-2">🚚</span>
+                            <h3 class="h5 fw-bold">Envíos a todo Uruguay</h3>
+                            <p class="text-secondary small mb-0">Despachamos tu pedido a cualquier punto del país a través de agencias en 24 a 48 hs.</p>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="benefit-card"><span>📱</span>
-                            <h3>Responsive</h3>
-                            <p>Escritorio, tablet y móvil.</p>
+                        <div class="benefit-card p-4 rounded-3 bg-white shadow-sm h-100">
+                            <span class="fs-1 d-block mb-2">🤖</span>
+                            <h3 class="h5 fw-bold">Asesoramiento Maker</h3>
+                            <p class="text-secondary small mb-0">Te ayudamos a elegir los componentes y sensores adecuados para tus proyectos y prototipos.</p>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="benefit-card"><span>♿</span>
-                            <h3>Accesibilidad</h3>
-                            <p>Semántica, contraste y textos alternativos.</p>
+                        <div class="benefit-card p-4 rounded-3 bg-white shadow-sm h-100">
+                            <span class="fs-1 d-block mb-2">🛡️</span>
+                            <h3 class="h5 fw-bold">Garantía y Cuotas</h3>
+                            <p class="text-secondary small mb-0">Comprá con total confianza. Garantía oficial de 12 meses y facilidades de pago.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <div class="modal fade" id="projectInfoModal" tabindex="-1">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title fs-5">Roadmap</h2><button class="btn-close"
-                            data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>El proyecto se desarrollará progresivamente en cuatro sprints.</p>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="sprint-summary"><strong>Sprint 1 · Semanas 1 a 4</strong><span>Inicio,
-                                        identidad visual, HTML, CSS, Bootstrap y diseño responsive</span></div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="sprint-summary"><strong>Sprint 2 · Semanas 5 a 8</strong><span>Catálogo
-                                        dinámico, detalle de producto, carrito y LocalStorage</span></div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="sprint-summary"><strong>Sprint 3 · Semanas 9 a 12</strong><span>Firebase,
-                                        autenticación, perfil, pedidos y administración inicial</span></div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="sprint-summary"><strong>Sprint 4 · Semanas 13 a 15</strong><span>Seguridad,
-                                        roles, pruebas, accesibilidad, despliegue y presentación</span></div>
-                            </div>
-                        </div>
-                    </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light py-5 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3"><span class="brand-mark text-primary">N</span> Nexo Tech</h5>
+                    <p class="text-secondary small">Tu tienda especializada en hardware, componentes de robótica, electrónica maker y periféricos de alto rendimiento en Uruguay.</p>
+                </div>
+                <div class="col-md-4 col-lg-2">
+                    <h6 class="fw-bold mb-3">Navegación</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="index.html" class="text-secondary text-decoration-none">Inicio</a></li>
+                        <li class="mb-2"><a href="catalogo.html" class="text-secondary text-decoration-none">Catálogo</a></li>
+                        <li class="mb-2"><a href="producto.html" class="text-secondary text-decoration-none">Producto</a></li>
+                        <li class="mb-2"><a href="carrito.html" class="text-secondary text-decoration-none">Carrito</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <h6 class="fw-bold mb-3">Categorías</h6>
+                    <ul class="list-unstyled small text-secondary">
+                        <li class="mb-2">Kits de Robótica y Arduino</li>
+                        <li class="mb-2">Sensores y Servomotores</li>
+                        <li class="mb-2">Periféricos Gamer</li>
+                        <li class="mb-2">Audio y Gadgets</li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <h6 class="fw-bold mb-3">Contacto</h6>
+                    <ul class="list-unstyled small text-secondary">
+                        <li class="mb-2">📍 Uruguay</li>
+                        <li class="mb-2">✉️ contacto@nexotech.com.uy</li>
+                        <li class="mb-2">📞 +598 99 123 456</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-        </div>
-        </div>
-    </main>
-    <footer class="footer py-4 mt-auto">
-        <div class="container d-flex justify-content-between flex-wrap gap-2">
-            <span>© 2026 Nexo Tech · Proyecto integrador</span><span>Versión inicial para estudiantes</span>
+            <hr class="border-secondary my-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center small text-secondary">
+                <span>© 2026 Nexo Tech · Proyecto académico de Desarrollo Web</span>
+                <span>Sprint 1 · Versión Inicial</span>
+            </div>
         </div>
     </footer>
+
+    <!-- Toast de Notificaciones de Bootstrap -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="appToast" class="toast">
-            <div class="toast-header"><strong class="me-auto">Nexo Tech</strong><button class="btn-close"
-                    data-bs-dismiss="toast"></button></div>
+        <div id="appToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-dark text-white">
+                <strong class="me-auto text-primary">Nexo Tech</strong>
+                <small class="text-muted">Aviso</small>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
             <div class="toast-body" id="toastMessage"></div>
         </div>
     </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/base.js"></script>
 </body>

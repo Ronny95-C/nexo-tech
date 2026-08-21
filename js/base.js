@@ -1,1 +1,61 @@
-document.addEventListener("DOMContentLoaded",()=>{const p=document.body.dataset.page;document.querySelectorAll("[data-page]").forEach(a=>a.classList.toggle("active",a.dataset.page===p));const t=document.querySelector("#appToast"),m=document.querySelector("#toastMessage");const show=x=>{m.textContent=x;bootstrap.Toast.getOrCreateInstance(t).show()};document.querySelector("#btnLoginPlaceholder")?.addEventListener("click",()=>show("El inicio de sesión será desarrollado en el Sprint 3."));document.querySelector("#btnProjectInfo")?.addEventListener("click",()=>bootstrap.Modal.getOrCreateInstance(document.querySelector("#projectInfoModal")).show())});
+document.addEventListener("DOMContentLoaded", () => {
+    // Inicializar lógica de catálogo solo si estamos en la página del catálogo
+    const inputBusqueda = document.getElementById("buscarProducto");
+    const selectCategoria = document.getElementById("filtroCategoria");
+    const selectOrden = document.getElementById("ordenarPor");
+    const contenedor = document.getElementById("contenedorProductos");
+    const alertaSinResultados = document.getElementById("sinResultados");
+
+    if (inputBusqueda && selectCategoria && contenedor) {
+        function filtrarYOrdenar() {
+            const query = inputBusqueda.value.toLowerCase().trim();
+            const categoria = selectCategoria.value;
+            const criterioOrden = selectOrden ? selectOrden.value : "destacados";
+            const items = Array.from(contenedor.querySelectorAll(".item-producto"));
+
+            let visibles = 0;
+
+            // Filtrado
+            items.forEach(item => {
+                const nombre = (item.dataset.nombre || "").toLowerCase();
+                const textoCompleto = item.textContent.toLowerCase();
+                const catItem = item.dataset.categoria || "";
+
+                const coincideTexto = query === "" || nombre.includes(query) || textoCompleto.includes(query);
+                const coincideCategoria = categoria === "todas" || catItem === categoria;
+
+                if (coincideTexto && coincideCategoria) {
+                    item.classList.remove("d-none");
+                    visibles++;
+                } else {
+                    item.classList.add("d-none");
+                }
+            });
+
+            // Ordenamiento de los elementos visibles
+            if (criterioOrden === "precio-menor") {
+                items.sort((a, b) => Number(a.dataset.precio || 0) - Number(b.dataset.precio || 0));
+                items.forEach(item => contenedor.appendChild(item));
+            } else if (criterioOrden === "precio-mayor") {
+                items.sort((a, b) => Number(b.dataset.precio || 0) - Number(a.dataset.precio || 0));
+                items.forEach(item => contenedor.appendChild(item));
+            }
+
+            // Mostrar u ocultar mensaje de "sin resultados"
+            if (alertaSinResultados) {
+                if (visibles === 0) {
+                    alertaSinResultados.classList.remove("d-none");
+                } else {
+                    alertaSinResultados.classList.add("d-none");
+                }
+            }
+        }
+
+        // Listeners de eventos
+        inputBusqueda.addEventListener("input", filtrarYOrdenar);
+        selectCategoria.addEventListener("change", filtrarYOrdenar);
+        if (selectOrden) {
+            selectOrden.addEventListener("change", filtrarYOrdenar);
+        }
+    }
+});

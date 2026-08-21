@@ -1,78 +1,129 @@
 /* ==========================================================================
-   Nexo Tech - Estilos Personalizados (Sprint 1)
+  /* ==========================================================================
+   Nexo Tech - Estilos Personalizados & Identidad Visual (Sprint 1 & 2)
    ========================================================================== */
 
 /* Variables de Identidad Visual */
 :root {
   --primary-color: #0d6efd;
-  --primary-hover: #0b5ed7;
-  --dark-bg: #121417;
-  --card-border-radius: 1rem;
-  --transition-speed: 0.3s;
+  --primary-dark: #0a58ca;
+  --accent-cyan: #00d2ff;
+  --dark-bg: #0f172a;
+  --dark-surface: #1e293b;
+  --card-border-radius: 0.85rem;
+  --transition-speed: 0.25s;
+  
+  /* Colores de Accesibilidad (Ratios WCAG AA/AAA > 4.5:1) */
+  --text-main: #0f172a;
+  --text-muted-accessible: #475569;
+  --text-benefit-note: #334155;
 }
 
-/* Marca de Isotipo / Logotipo */
+/* ==========================================================================
+   Isotipo / Logotipo Nexo Tech
+   ========================================================================== */
 .brand-mark {
-  font-family: monospace, monospace;
-  background: rgba(13, 110, 253, 0.15);
-  padding: 2px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-cyan) 100%);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
   border-radius: 8px;
-  border: 1px solid rgba(13, 110, 253, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 210, 255, 0.35);
+  margin-right: 8px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Hero Section */
-.hero {
+.brand-text-accent {
+  background: linear-gradient(90deg, #ffffff 40%, var(--accent-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Barra de Navegación */
+.navbar {
   background-color: var(--dark-bg) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.hero .hero-card img {
-  max-height: 420px;
-  object-fit: cover;
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero-section {
+  background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-surface) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--card-border-radius);
+  color: #ffffff;
 }
 
-/* Tarjetas de Producto */
+/* ==========================================================================
+   Tarjetas de Beneficios (Accesibilidad & Alto Contraste)
+   ========================================================================== */
+.benefit-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--card-border-radius);
+  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+}
+
+.benefit-card .benefit-title {
+  color: var(--text-main) !important;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+/* Corrección de contraste observada por el profesor */
+.benefit-card .benefit-note {
+  color: var(--text-benefit-note) !important;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Tarjetas de Producto & Destacados
+   ========================================================================== */
 .product-card {
   transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
   border-radius: var(--card-border-radius);
   overflow: hidden;
   background-color: #ffffff;
+  border: 1px solid #e2e8f0;
 }
 
 .product-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 12px 24px rgba(13, 110, 253, 0.12) !important;
+  border-color: #bfdbfe;
 }
 
 .product-card img {
-  background-color: #f8f9fa;
+  background-color: #f8fafc;
   object-fit: contain;
   height: 200px;
 }
 
-/* Tarjetas de Beneficios */
-.benefit-card {
-  transition: transform var(--transition-speed) ease;
-  border: 1px solid rgba(0,0,0,0.05);
-}
-
-.benefit-card:hover {
-  transform: translateY(-3px);
-}
-
-/* Requisitos de Accesibilidad (Foco visible para navegación por teclado) */
+/* Accesibilidad: Foco visible */
 a:focus-visible,
-button:focus-visible {
-  outline: 3px solid var(--primary-color) !important;
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--accent-cyan) !important;
   outline-offset: 2px;
 }
 
 /* Ajustes Responsivos */
 @media (max-width: 768px) {
-  .display-4 {
-    font-size: 2.25rem;
-  }
-  
-  .hero-card img {
-    max-height: 280px;
+  .display-5 {
+    font-size: 2rem;
   }
 }

@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/[\u0300-\u036f]/g, "");
     }
 
-    function renderizarCatálogo() {
+    function renderizarCatalogo() {
         let productos = obtenerProductos();
 
         // 1. Filtrar por Búsqueda de Texto (Nombre, Descripción o Categoría)
@@ -61,7 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="card h-100 shadow-sm border-0 product-card">
                     <img src="${prod.imagen}" class="card-img-top p-3 rounded" alt="${prod.nombre}" style="height: 200px; object-fit: contain;">
                     <div class="card-body d-flex flex-column">
-                        <span class="badge bg-light text-primary border border-primary-subtle align-self-start mb-2">${prod.categoria}</span>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-light text-primary border border-primary-subtle">${prod.categoria}</span>
+                            <span class="badge bg-success-subtle text-success border border-success-subtle">Stock: ${prod.stock} u.</span>
+                        </div>
                         <h5 class="card-title fw-bold text-dark fs-6">${prod.nombre}</h5>
                         <p class="card-text text-secondary small flex-grow-1">${prod.descripcion}</p>
                         <div class="d-flex justify-content-between align-items-center mt-3">
@@ -82,19 +85,55 @@ document.addEventListener("DOMContentLoaded", () => {
         // Eventos para botones de agregar al carrito
         document.querySelectorAll(".btn-agregar-carrito").forEach(btn => {
             btn.addEventListener("click", (e) => {
-                const id = parseInt(e.currentTarget.dataset.id);
-                if (typeof agregarAlCarrito === "function") {
-                    agregarAlCarrito(id);
-                }
+                // CORREGIDO: Mantener como String ("p1", "p2", etc.)
+                const id = e.currentTarget.dataset.id;
+                agregarAlCarritoCatalogo(id);
             });
         });
     }
 
+    // Función auxiliar para añadir productos al carrito desde la tarjeta
+    function agregarAlCarritoCatalogo(idProducto) {
+        const productos = obtenerProductos();
+        const producto = productos.find(p => p.id === idProducto);
+        if (!producto) return;
+
+        let carrito = obtenerCarrito();
+        const itemExistente = carrito.find(item => item.id === idProducto);
+
+        if (itemExistente) {
+            if (itemExistente.cantidad < producto.stock) {
+                itemExistente.cantidad++;
+                mostrarToast(`Se agregó otra unidad de "${producto.nombre}" al carrito.`);
+            } else {
+                mostrarToast(`No hay más stock disponible de "${producto.nombre}".`);
+                return;
+            }
+        } else {
+            if (producto.stock > 0) {
+                carrito.push({
+                    id: producto.id,
+                    nombre: producto.nombre,
+                    precio: producto.precio,
+                    imagen: producto.imagen,
+                    stock: producto.stock,
+                    cantidad: 1
+                });
+                mostrarToast(`"${producto.nombre}" se agregó al carrito.`);
+            } else {
+                mostrarToast(`Producto agotado.`);
+                return;
+            }
+        }
+
+        guardarCarrito(carrito);
+    }
+
     // Escuchar eventos de cambio en filtros e input
-    if (inputBuscar) inputBuscar.addEventListener("input", renderizarCatálogo);
-    if (selectCategoria) selectCategoria.addEventListener("change", renderizarCatálogo);
-    if (selectOrden) selectOrden.addEventListener("change", renderizarCatálogo);
+    if (inputBuscar) inputBuscar.addEventListener("input", renderizarCatalogo);
+    if (selectCategoria) selectCategoria.addEventListener("change", renderizarCatalogo);
+    if (selectOrden) selectOrden.addEventListener("change", renderizarCatalogo);
 
     // Carga inicial
-    renderizarCatálogo();
+    renderizarCatalogo();
 });

@@ -1,19 +1,184 @@
-<!doctype html><html lang='es'><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css"><title>Nexo Store | Producto</title></head><body class='d-flex flex-column min-vh-100' data-page='producto'><nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm"><div class="container">
-<a class="navbar-brand fw-bold" href="index.html"><span class="brand-mark">N</span> Nexo Store</a>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
-<div class="collapse navbar-collapse" id="mainNav"><ul class="navbar-nav me-auto">
-<li class="nav-item"><a class="nav-link" data-page="inicio" href="index.html">Inicio</a></li>
-<li class="nav-item"><a class="nav-link" data-page="catalogo" href="catalogo.html">Catálogo</a></li>
-<li class="nav-item"><a class="nav-link" data-page="producto" href="producto.html">Producto</a></li>
-<li class="nav-item"><a class="nav-link" data-page="carrito" href="carrito.html">Carrito</a></li>
-<li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
-<li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li></ul>
-<button class="btn btn-outline-light btn-sm" id="btnLoginPlaceholder">Ingresar</button></div></div></nav><main class='flex-grow-1'><div class="container py-5"><section class="locked-module"><div class="locked-icon">🚧</div>
-<span class="badge rounded-pill text-bg-warning mb-3">Sprint 2 · Semanas 5 a 8</span><h1>Detalle individual del producto</h1><p class="lead">Se desarrollará la ficha completa del producto.</p>
-<div class="locked-card"><h2 class="h5">Funcionalidad en desarrollo</h2><p>Este módulo forma parte de la arquitectura final, pero su código deberá desarrollarse en el sprint indicado.</p><ul><li>Identificador desde la URL</li><li>Precio y disponibilidad</li><li>Carrusel de imágenes</li><li>Características</li><li>Valoraciones y comentarios</li><li>Botón para agregar al carrito</li></ul></div>
-<a class="btn btn-outline-primary mt-3" href="index.html">Volver al inicio</a></section></div></main><footer class="footer py-4 mt-auto"><div class="container d-flex justify-content-between flex-wrap gap-2">
-<span>© 2026 Nexo Store · Proyecto integrador</span><span>Versión inicial para estudiantes</span></div></footer>
-<div class="toast-container position-fixed bottom-0 end-0 p-3"><div id="appToast" class="toast"><div class="toast-header"><strong class="me-auto">Nexo Store</strong><button class="btn-close" data-bs-dismiss="toast"></button></div><div class="toast-body" id="toastMessage"></div></div></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="js/base.js"></script></body></html>
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalle de Producto | Nexo Tech</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100" data-page="producto">
+
+    <!-- Navegación Principal -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html">
+                    <span class="brand-mark">N</span>
+                    <span>Nexo<span class="brand-text-accent">Tech</span></span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Abrir menú de navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" data-page="inicio" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" data-page="catalogo" href="catalogo.html">Catálogo</a></li>
+                        <li class="nav-item"><a class="nav-link active" data-page="producto" href="producto.html">Producto</a></li>
+                        <li class="nav-item"><a class="nav-link" data-page="carrito" href="carrito.html">Carrito</a></li>
+                        <li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
+                        <li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-3">
+                        <a href="carrito.html" class="btn btn-outline-light position-relative btn-sm" aria-label="Ver carrito">
+                            🛒
+                            <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                                0
+                            </span>
+                        </a>
+                        <button class="btn btn-primary btn-sm fw-semibold" id="btnLoginPlaceholder">Ingresar</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container py-4 flex-grow-1">
+        
+        <!-- Migas de pan (Breadcrumb) -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="catalogo.html">Catálogo</a></li>
+                <li class="breadcrumb-item active" id="breadcrumbNombre" aria-current="page">Cargando producto...</li>
+            </ol>
+        </nav>
+
+        <!-- Mensaje de Producto No Encontrado -->
+        <div id="productoNoEncontrado" class="alert alert-warning text-center d-none my-5 py-4" role="alert">
+            <h4 class="alert-heading fw-bold">⚠️ Producto no encontrado</h4>
+            <p class="mb-3">El producto que estás buscando no existe o no se encuentra disponible en nuestro catálogo.</p>
+            <a href="catalogo.html" class="btn btn-primary">Volver al Catálogo</a>
+        </div>
+
+        <!-- Contenedor del Detalle del Producto -->
+        <section id="detalleProductoContenedor" class="card border-0 shadow-sm p-4 rounded-3 bg-white d-none">
+            <div class="row g-4 align-items-center">
+                <!-- Imagen del Producto -->
+                <div class="col-md-6 text-center">
+                    <div class="bg-light p-4 rounded-3 border">
+                        <img id="productoImagen" src="" class="img-fluid rounded" alt="" style="max-height: 400px; object-fit: contain;">
+                    </div>
+                </div>
+
+                <!-- Detalles e Interacción -->
+                <div class="col-md-6">
+                    <span id="productoCategoria" class="badge bg-light text-primary border border-primary-subtle mb-2 fs-6">
+                        Categoría
+                    </span>
+                    <h1 id="productoNombre" class="fw-bold text-dark mb-3">Nombre del Producto</h1>
+                    <p id="productoDescripcion" class="text-secondary leading-relaxed mb-4">
+                        Descripción detallada...
+                    </p>
+
+                    <div class="mb-4">
+                        <span class="text-muted small d-block">Precio por unidad</span>
+                        <span id="productoPrecio" class="fs-2 fw-bold text-primary">$0</span>
+                    </div>
+
+                    <!-- Controles de Cantidad y Agregar al Carrito -->
+                    <div class="card bg-light border-0 p-3 mb-4 rounded-3">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="cantidadInput" class="fw-semibold me-2">Cantidad:</label>
+                                <input type="number" id="cantidadInput" class="form-control d-inline-block text-center" value="1" min="1" max="10" style="width: 80px;">
+                            </div>
+                            <div class="col">
+                                <button id="btnAgregarCarritoDetalle" class="btn btn-primary w-100 py-2 fw-bold">
+                                    🛒 Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enlace de retorno -->
+                    <a href="catalogo.html" class="text-decoration-none text-secondary small">
+                        ← Volver a explorar el catálogo
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light py-5 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="brand-mark">N</span>
+                        <h5 class="fw-bold mb-0 text-white">Nexo<span class="brand-text-accent">Tech</span></h5>
+                    </div>
+                    <p class="text-light opacity-75 small">Tu tienda especializada en hardware, componentes de robótica, electrónica maker y periféricos de alto rendimiento en Uruguay.</p>
+                </div>
+                <div class="col-md-4 col-lg-2">
+                    <h6 class="fw-bold mb-3 text-white">Navegación</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="index.html" class="text-light text-decoration-none opacity-75">Inicio</a></li>
+                        <li class="mb-2"><a href="catalogo.html" class="text-light text-decoration-none opacity-75">Catálogo</a></li>
+                        <li class="mb-2"><a href="producto.html" class="text-light text-decoration-none opacity-75">Producto</a></li>
+                        <li class="mb-2"><a href="carrito.html" class="text-light text-decoration-none opacity-75">Carrito</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <h6 class="fw-bold mb-3 text-white">Categorías</h6>
+                    <ul class="list-unstyled small text-light opacity-75">
+                        <li class="mb-2">Kits de Robótica y Arduino</li>
+                        <li class="mb-2">Sensores y Servomotores</li>
+                        <li class="mb-2">Periféricos Gamer</li>
+                        <li class="mb-2">Audio y Gadgets</li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <h6 class="fw-bold mb-3 text-white">Contacto</h6>
+                    <ul class="list-unstyled small text-light opacity-75">
+                        <li class="mb-2">📍 Uruguay</li>
+                        <li class="mb-2">✉️ contacto@nexotech.com.uy</li>
+                        <li class="mb-2">📞 +598 99 123 456</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary my-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center small text-light opacity-75">
+                <span>© 2026 Nexo Tech · Proyecto académico de Desarrollo Web</span>
+                <span>Sprint 2 · Versión Dinámica</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast de Notificaciones -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="appToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-dark text-white">
+                <strong class="me-auto text-primary">Nexo Tech</strong>
+                <small class="text-light opacity-75">Aviso</small>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+            <div class="toast-body" id="toastMessage"></div>
+        </div>
+    </div>
+
+    <!-- Scripts en orden estricto -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/base.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/producto.js"></script>
+</body>
+
+</html>

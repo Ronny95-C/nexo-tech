@@ -63,10 +63,10 @@ nexo-tech/
 ├── producto.html       # Vista detallada según el producto seleccionado
 └── README.md           # Documentación general del proyecto
 
-Entregable: Sprint 2 — Tienda Dinámica y Carrito
+## Entregable: Sprint 2 — Tienda Dinámica y Carrito
 En esta fase se transformó la maquetación estática del Sprint 1 en una aplicación funcional e interactiva del lado del cliente.
 
- Funcionalidades Incorporadas
+## Funcionalidades Incorporadas
 Catálogo Dinámico:
 
 Carga de productos mediante un arreglo de objetos dinámico (js/productos.js).
@@ -104,7 +104,7 @@ Serialización (JSON.stringify): Guarda la información al agregar, modificar o 
 
 Deserialización (JSON.parse): Recupera los artículos guardados al cargar cualquier página de la tienda.
 
- Funcionalidades Pendientes (Sprint 3)
+## Funcionalidades Pendientes (Sprint 3)
 [ ] Registro e inicio de sesión de usuarios.
 
 [ ] Integración con Firebase Authentication.

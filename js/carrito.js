@@ -133,6 +133,7 @@ function mostrarNotificacion(mensaje, tipo = "info") {
 function renderizarPaginaCarrito() {
     const contenedor = document.getElementById("itemsCarrito");
     const resumenSubtotal = document.getElementById("resumenSubtotal");
+    const resumenIva = document.getElementById("resumenIva");
     const resumenTotal = document.getElementById("resumenTotal");
     const vistaVacia = document.getElementById("carritoVacio");
     const vistaContenido = document.getElementById("carritoContenido");
@@ -186,8 +187,12 @@ function renderizarPaginaCarrito() {
         contenedor.appendChild(tr);
     });
 
+    const iva = subtotal * 0.22;
+    const total = subtotal + iva;
+
     if (resumenSubtotal) resumenSubtotal.textContent = `$ ${subtotal.toLocaleString("es-UY")}`;
-    if (resumenTotal) resumenTotal.textContent = `$ ${subtotal.toLocaleString("es-UY")}`;
+    if (resumenIva) resumenIva.textContent = `$ ${Math.round(iva).toLocaleString("es-UY")}`;
+    if (resumenTotal) resumenTotal.textContent = `$ ${Math.round(total).toLocaleString("es-UY")}`;
 }
 
 // Inicialización

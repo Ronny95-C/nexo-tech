@@ -180,7 +180,7 @@ function renderizarPaginaCarrito() {
             <td class="text-end fw-bold text-dark">$ ${totalItem.toLocaleString("es-UY")}</td>
             <td class="text-center">
                 <button class="btn btn-outline-danger btn-sm" onclick="eliminarDelCarrito('${item.id}')" title="Eliminar producto">
-                    🗑️
+                    <i class="bi bi-trash" aria-hidden="true"></i><span class="visually-hidden">Eliminar ${item.nombre}</span>
                 </button>
             </td>
         `;
@@ -199,4 +199,12 @@ function renderizarPaginaCarrito() {
 document.addEventListener("DOMContentLoaded", () => {
     actualizarBadgeCarrito();
     renderizarPaginaCarrito();
+
+    // Finalizar compra: funcionalidad simulada en esta etapa
+    const btnFinalizar = document.getElementById("btnFinalizarCompra");
+    if (btnFinalizar) {
+        btnFinalizar.addEventListener("click", () => {
+            mostrarNotificacion("Compra simulada: el procesamiento de pedidos se incorporará en el Sprint 3.", "info");
+        });
+    }
 });

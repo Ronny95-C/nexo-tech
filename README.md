@@ -50,11 +50,11 @@ nexo-tech/
 ├── css/
 │   └── styles.css      # Estilos personalizados de la tienda
 ├── js/
-│   ├── productos.js    # Base de datos estática local de productos
 │   ├── catalogo.js     # Lógica de renderizado, búsqueda y filtrado
 │   ├── producto.js     # Lógica para renderizar el detalle dinámico por ID
 │   ├── carrito.js      # Gestión del carrito, stock y LocalStorage
-│   └── base.js         # Scripts transversales e interacción del navbar
+│   ├── inicio.js       # Productos destacados del home (leen de base.js)
+│   └── base.js         # Productos (PRODUCTOS_INICIALES), toast, login simulado y utilidades comunes
 ├── admin.html          # Panel de administración (Prototipo - Sprint futuro)
 ├── carrito.html        # Vista interactiva del carrito de compras
 ├── catalogo.html       # Catálogo dinámico con filtros y buscador
@@ -62,6 +62,7 @@ nexo-tech/
 ├── perfil.html         # Perfil de usuario (Prototipo - Sprint futuro)
 ├── producto.html       # Vista detallada según el producto seleccionado
 └── README.md           # Documentación general del proyecto
+```
 
 ## Entregable: Sprint 2 — Tienda Dinámica y Carrito
 En esta fase se transformó la maquetación estática del Sprint 1 en una aplicación funcional e interactiva del lado del cliente.
@@ -69,7 +70,7 @@ En esta fase se transformó la maquetación estática del Sprint 1 en una aplica
 ## Funcionalidades Incorporadas
 Catálogo Dinámico:
 
-Carga de productos mediante un arreglo de objetos dinámico (js/productos.js).
+Carga de productos mediante un arreglo de objetos dinámico (`PRODUCTOS_INICIALES` en js/base.js).
 
 Inserción dinámica de tarjetas en catalogo.html.
 
@@ -114,3 +115,14 @@ Deserialización (JSON.parse): Recupera los artículos guardados al cargar cualq
 [ ] Panel de administración funcional para gestión de inventario (admin.html).
 
 [ ] Procesamiento de pedidos reales.
+
+## Correcciones posteriores al Sprint 2
+* Los productos destacados del inicio se generan desde `js/inicio.js` con los mismos datos del catálogo y enlazan a `producto.html?id=...`.
+* Se unificó la fuente de datos en `js/base.js` y se eliminó `js/productos.js`, que duplicaba la información.
+* Botón **Limpiar filtros** en el catálogo (restablece búsqueda, categoría y orden).
+* El botón **Finalizar Compra** informa que la compra es simulada.
+* `producto.html` ya no figura en el menú ni en el pie de página: se accede desde los destacados o el catálogo.
+* Emojis reemplazados por Bootstrap Icons.
+* El resumen del carrito muestra el IVA (22%) junto con subtotal y total.
+* `perfil.html` y `admin.html` adoptan la marca Nexo Tech y el mismo navbar y pie de página.
+* El botón "Ingresar" muestra un aviso (Sprint 3) y el formulario de newsletter es simulado.

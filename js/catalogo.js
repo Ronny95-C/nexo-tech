@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectCategoria = document.getElementById("filtroCategoria");
     const selectOrden = document.getElementById("ordenarPor");
     const sinResultados = document.getElementById("sinResultados");
+    const btnLimpiar = document.getElementById("btnLimpiarFiltros");
 
     if (!contenedor) return;
 
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <div class="btn-group">
                                 <a href="producto.html?id=${prod.id}" class="btn btn-outline-secondary btn-sm">Ver más</a>
                                 <button class="btn btn-primary btn-sm btn-agregar-carrito" data-id="${prod.id}">
-                                    🛒 Agregar
+                                    <i class="bi bi-cart-plus me-1"></i>Agregar
                                 </button>
                             </div>
                         </div>
@@ -85,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Eventos para botones de agregar al carrito
         document.querySelectorAll(".btn-agregar-carrito").forEach(btn => {
             btn.addEventListener("click", (e) => {
-                // CORREGIDO: Mantener como String ("p1", "p2", etc.)
+                // Mantener como String ("p1", "p2", etc.)
                 const id = e.currentTarget.dataset.id;
                 agregarAlCarritoCatalogo(id);
             });
@@ -129,10 +130,20 @@ document.addEventListener("DOMContentLoaded", () => {
         guardarCarrito(carrito);
     }
 
+    // Restablece búsqueda, categoría y orden
+    function limpiarFiltros() {
+        if (inputBuscar) inputBuscar.value = "";
+        if (selectCategoria) selectCategoria.value = "todas";
+        if (selectOrden) selectOrden.value = "destacados";
+        renderizarCatalogo();
+        if (inputBuscar) inputBuscar.focus();
+    }
+
     // Escuchar eventos de cambio en filtros e input
     if (inputBuscar) inputBuscar.addEventListener("input", renderizarCatalogo);
     if (selectCategoria) selectCategoria.addEventListener("change", renderizarCatalogo);
     if (selectOrden) selectOrden.addEventListener("change", renderizarCatalogo);
+    if (btnLimpiar) btnLimpiar.addEventListener("click", limpiarFiltros);
 
     // Carga inicial
     renderizarCatalogo();

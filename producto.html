@@ -7,6 +7,7 @@
     <title>Detalle de Producto | Nexo Tech</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -28,14 +29,13 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" data-page="inicio" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" data-page="catalogo" href="catalogo.html">Catálogo</a></li>
-                        <li class="nav-item"><a class="nav-link active" data-page="producto" href="producto.html">Producto</a></li>
                         <li class="nav-item"><a class="nav-link" data-page="carrito" href="carrito.html">Carrito</a></li>
                         <li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
                         <li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
                     </ul>
                     <div class="d-flex align-items-center gap-3">
                         <a href="carrito.html" class="btn btn-outline-light position-relative btn-sm" aria-label="Ver carrito">
-                            🛒
+                            <i class="bi bi-cart3"></i>
                             <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                                 0
                             </span>
@@ -61,7 +61,7 @@
 
         <!-- Mensaje de Producto No Encontrado -->
         <div id="productoNoEncontrado" class="alert alert-warning text-center d-none my-5 py-4" role="alert">
-            <h4 class="alert-heading fw-bold">⚠️ Producto no encontrado</h4>
+            <h4 class="alert-heading fw-bold"><i class="bi bi-exclamation-triangle me-2"></i>Producto no encontrado</h4>
             <p class="mb-3">El producto que estás buscando no existe o no se encuentra disponible en nuestro catálogo.</p>
             <a href="catalogo.html" class="btn btn-primary">Volver al Catálogo</a>
         </div>
@@ -100,7 +100,7 @@
                             </div>
                             <div class="col">
                                 <button id="btnAgregarCarritoDetalle" class="btn btn-primary w-100 py-2 fw-bold">
-                                    🛒 Agregar al Carrito
+                                    <i class="bi bi-cart-plus me-1"></i>Agregar al Carrito
                                 </button>
                             </div>
                         </div>
@@ -132,7 +132,6 @@
                     <ul class="list-unstyled small">
                         <li class="mb-2"><a href="index.html" class="text-light text-decoration-none opacity-75">Inicio</a></li>
                         <li class="mb-2"><a href="catalogo.html" class="text-light text-decoration-none opacity-75">Catálogo</a></li>
-                        <li class="mb-2"><a href="producto.html" class="text-light text-decoration-none opacity-75">Producto</a></li>
                         <li class="mb-2"><a href="carrito.html" class="text-light text-decoration-none opacity-75">Carrito</a></li>
                     </ul>
                 </div>
@@ -148,9 +147,9 @@
                 <div class="col-md-4 col-lg-3">
                     <h6 class="fw-bold mb-3 text-white">Contacto</h6>
                     <ul class="list-unstyled small text-light opacity-75">
-                        <li class="mb-2">📍 Uruguay</li>
-                        <li class="mb-2">✉️ contacto@nexotech.com.uy</li>
-                        <li class="mb-2">📞 +598 99 123 456</li>
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>Uruguay</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>contacto@nexotech.com.uy</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>+598 99 123 456</li>
                     </ul>
                 </div>
             </div>

@@ -7,6 +7,7 @@
     <title>Catálogo de Productos | Nexo Tech</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -28,14 +29,13 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" data-page="inicio" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link active" data-page="catalogo" href="catalogo.html">Catálogo</a></li>
-                        <li class="nav-item"><a class="nav-link" data-page="producto" href="producto.html">Producto</a></li>
                         <li class="nav-item"><a class="nav-link" data-page="carrito" href="carrito.html">Carrito</a></li>
                         <li class="nav-item"><a class="nav-link" data-page="perfil" href="perfil.html">Mi perfil</a></li>
                         <li class="nav-item"><a class="nav-link" data-page="admin" href="admin.html">Administración</a></li>
                     </ul>
                     <div class="d-flex align-items-center gap-3">
                         <a href="carrito.html" class="btn btn-outline-light position-relative btn-sm" aria-label="Ver carrito">
-                            🛒
+                            <i class="bi bi-cart3"></i>
                             <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
                                 0
                             </span>
@@ -60,14 +60,14 @@
         <!-- Barra de Búsqueda y Filtros -->
         <section class="card border-0 shadow-sm p-3 mb-4 rounded-3 bg-white">
             <div class="row g-3 align-items-center">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <label for="buscarProducto" class="visually-hidden">Buscar productos</label>
                     <div class="input-group">
-                        <span class="input-group-text bg-light text-secondary border-end-0">🔍</span>
+                        <span class="input-group-text bg-light text-secondary border-end-0"><i class="bi bi-search"></i></span>
                         <input type="search" class="form-control border-start-0 bg-light" id="buscarProducto" placeholder="Buscar por nombre o descripción...">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="filtroCategoria" class="visually-hidden">Filtrar por categoría</label>
                     <select class="form-select bg-light" id="filtroCategoria">
                         <option value="todas">Todas las categorías</option>
@@ -86,6 +86,11 @@
                         <option value="precio-menor">Precio: Menor a Mayor</option>
                         <option value="precio-mayor">Precio: Mayor a Menor</option>
                     </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-outline-secondary w-100" id="btnLimpiarFiltros">
+                        <i class="bi bi-x-circle me-1"></i>Limpiar filtros
+                    </button>
                 </div>
             </div>
         </section>
@@ -120,7 +125,6 @@
                     <ul class="list-unstyled small">
                         <li class="mb-2"><a href="index.html" class="text-light text-decoration-none opacity-75">Inicio</a></li>
                         <li class="mb-2"><a href="catalogo.html" class="text-light text-decoration-none opacity-75">Catálogo</a></li>
-                        <li class="mb-2"><a href="producto.html" class="text-light text-decoration-none opacity-75">Producto</a></li>
                         <li class="mb-2"><a href="carrito.html" class="text-light text-decoration-none opacity-75">Carrito</a></li>
                     </ul>
                 </div>
@@ -136,9 +140,9 @@
                 <div class="col-md-4 col-lg-3">
                     <h6 class="fw-bold mb-3 text-white">Contacto</h6>
                     <ul class="list-unstyled small text-light opacity-75">
-                        <li class="mb-2">📍 Uruguay</li>
-                        <li class="mb-2">✉️ contacto@nexotech.com.uy</li>
-                        <li class="mb-2">📞 +598 99 123 456</li>
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>Uruguay</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i>contacto@nexotech.com.uy</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i>+598 99 123 456</li>
                     </ul>
                 </div>
             </div>

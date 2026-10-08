@@ -126,3 +126,22 @@ Deserialización (JSON.parse): Recupera los artículos guardados al cargar cualq
 * El resumen del carrito muestra el IVA (22%) junto con subtotal y total.
 * `perfil.html` y `admin.html` adoptan la marca Nexo Tech y el mismo navbar y pie de página.
 * El botón "Ingresar" muestra un aviso (Sprint 3) y el formulario de newsletter es simulado.
+
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAcWdirTDFzdMRxzqEOXkyG-TteptAYUK0",
+  authDomain: "nexo-tech-4f269.firebaseapp.com",
+  projectId: "nexo-tech-4f269",
+  storageBucket: "nexo-tech-4f269.firebasestorage.app",
+  messagingSenderId: "1094381989771",
+  appId: "1:1094381989771:web:e349c852f443dca199498e"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carga inicial de productos | Nexo Tech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <main class="container py-5" style="max-width: 640px;">
+        <h1 class="h3 fw-bold">Carga inicial de productos</h1>
+        <p class="text-secondary">Herramienta de uso único: copia los productos de <code>js/base.js</code> a la colección <code>productos</code> de Firestore. Requiere haber iniciado sesión.</p>
+        <button id="btnCargar" class="btn btn-primary" disabled>Cargar productos en Firestore</button>
+        <a href="index.html" class="btn btn-outline-secondary ms-2">Volver al inicio</a>
+        <pre id="registro" class="bg-white border rounded p-3 mt-4 small" style="min-height: 120px;">Verificando sesión...</pre>
+    </main>
+
+    <script src="js/base.js"></script>
+    <script type="module">
+        import { auth } from "./js/firebase/config.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        import { poblarProductos } from "./js/seed-productos.js";
+
+        const btn = document.getElementById("btnCargar");
+        const registro = document.getElementById("registro");
+        const log = (m) => { registro.textContent += "\n" + m; };
+
+        onAuthStateChanged(auth, (user) => {
+            registro.textContent = user ? `Sesión: ${user.email}` : "Primero iniciá sesión en acceso.html.";
+            btn.disabled = !user;
+        });
+
+        btn.addEventListener("click", async () => {
+            btn.disabled = true;
+            try {
+                const n = await poblarProductos(log);
+                log(`Listo: ${n} producto(s) subido(s).`);
+            } catch (e) {
+                console.error(e);
+                log("Error: " + (e.code ? e.code + " - " : "") + e.message + "\n(Si dice permission-denied, revisá las reglas de Firestore; si dice que no respondió, revisá la conexión o extensiones del navegador.)");
+            }
+            btn.disabled = false;
+        });
+    </script>
+</body>
+</html>

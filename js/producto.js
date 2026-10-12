@@ -1,68 +1,74 @@
 // js/producto.js
+// Detalle dinámico: lee ?id=... y consulta el producto en Cloud Firestore.
 
-document.addEventListener("DOMContentLoaded", () => {
-  const contenedor = document.getElementById("detalleProductoContenedor");
-  const noEncontrado = document.getElementById("productoNoEncontrado");
+import { obtenerProductoConRespaldo, hayStock, esc } from "./productos-firebase.js";
 
-  const breadcrumbNombre = document.getElementById("breadcrumbNombre");
-  const imgElem = document.getElementById("productoImagen");
-  const catElem = document.getElementById("productoCategoria");
-  const nombreElem = document.getElementById("productoNombre");
-  const descElem = document.getElementById("productoDescripcion");
-  const precioElem = document.getElementById("productoPrecio");
-  const cantidadInput = document.getElementById("cantidadInput");
-  const btnAgregar = document.getElementById("btnAgregarCarritoDetalle");
+const contenedor = document.getElementById("detalleProductoContenedor");
+const noEncontrado = document.getElementById("productoNoEncontrado");
+const breadcrumbNombre = document.getElementById("breadcrumbNombre");
+const cantidadInput = document.getElementById("cantidadInput");
+const btnAgregar = document.getElementById("btnAgregarCarritoDetalle");
+const listaCaract = document.getElementById("productoCaracteristicas");
 
-  if (!contenedor) return;
+const idProducto = new URLSearchParams(window.location.search).get("id");
 
-  // Capturar ID de la URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const idProducto = urlParams.get("id");
+function mostrarMensaje(texto, titulo) {
+    noEncontrado.querySelector("p").textContent = texto;
+    noEncontrado.classList.remove("d-none");
+    breadcrumbNombre.textContent = titulo;
+}
 
-  const listaProductos = typeof obtenerProductos === "function" ? obtenerProductos() : [];
-  const producto = listaProductos.find(p => String(p.id) === String(idProducto));
+async function cargarDetalle() {
+    if (!idProducto) { mostrarMensaje("No se indicó qué producto mostrar.", "Producto no encontrado"); return; }
 
-  if (!producto) {
-    if (noEncontrado) noEncontrado.classList.remove("d-none");
-    if (breadcrumbNombre) breadcrumbNombre.textContent = "Producto no encontrado";
-    return;
-  }
-
-  // Renderizar datos del producto
-  document.title = `${producto.nombre} | Nexo Tech`;
-  if (breadcrumbNombre) breadcrumbNombre.textContent = producto.nombre;
-  
-  if (imgElem) {
-    imgElem.src = producto.imagen;
-    imgElem.alt = producto.nombre;
-  }
-  
-  if (catElem) catElem.textContent = producto.categoria;
-  if (nombreElem) nombreElem.textContent = producto.nombre;
-  if (descElem) descElem.textContent = producto.descripcion;
-  if (precioElem) precioElem.textContent = `$${producto.precio.toLocaleString("es-UY")}`;
-
-  // Ajustar límites del input según el stock disponible
-  if (cantidadInput && producto.stock !== undefined) {
-    cantidadInput.max = producto.stock;
-    if (producto.stock <= 0) {
-      cantidadInput.value = 0;
-      cantidadInput.disabled = true;
-      if (btnAgregar) btnAgregar.disabled = true;
+    let producto;
+    try {
+        producto = (await obtenerProductoConRespaldo(idProducto)).producto;
+    } catch (error) {
+        console.error("Error al consultar el producto:", error);
+        mostrarMensaje("No se pudo cargar el producto. Revisá tu conexión e intentá de nuevo.", "Error al cargar");
+        return;
     }
-  }
+    if (!producto) { mostrarMensaje("El producto solicitado no existe.", "Producto no encontrado"); return; }
 
-  // Mostrar el contenedor de detalle
-  contenedor.classList.remove("d-none");
+    document.title = `${producto.nombre} | Nexo Tech`;
+    breadcrumbNombre.textContent = producto.nombre;
+    const img = document.getElementById("productoImagen");
+    img.src = producto.imagen;
+    img.alt = producto.nombre;
+    document.getElementById("productoCategoria").textContent = producto.categoria;
+    document.getElementById("productoNombre").textContent = producto.nombre;
+    document.getElementById("productoDescripcion").textContent = producto.descripcion;
+    document.getElementById("productoPrecio").textContent = `$${producto.precio.toLocaleString("es-UY")}`;
 
-  // Escuchador de eventos para agregar al carrito
-  if (btnAgregar) {
-    btnAgregar.addEventListener("click", () => {
-      const cantidad = parseInt(cantidadInput ? cantidadInput.value : 1, 10) || 1;
-      
-      if (typeof agregarAlCarrito === "function") {
-        agregarAlCarrito(producto.id, cantidad);
-      }
+    if (listaCaract) {
+        listaCaract.innerHTML = producto.caracteristicas.map(c => `<li>${esc(c)}</li>`).join("");
+        listaCaract.classList.toggle("d-none", producto.caracteristicas.length === 0);
+    }
+
+    if (!hayStock(producto)) {
+        cantidadInput.value = 0;
+        cantidadInput.disabled = true;
+        btnAgregar.disabled = true;
+        btnAgregar.textContent = "Producto agotado";
+    } else {
+        cantidadInput.max = producto.stock;
+    }
+    contenedor.classList.remove("d-none");
+
+    // Se vuelve a consultar el stock en el momento de agregar
+    btnAgregar.addEventListener("click", async () => {
+        const cantidad = parseInt(cantidadInput.value, 10) || 1;
+        try {
+            const actual = (await obtenerProductoConRespaldo(producto.id)).producto;
+            if (!actual || !hayStock(actual)) { mostrarToast("El producto ya no está disponible."); return; }
+            cantidadInput.max = actual.stock;
+            agregarAlCarrito(actual.id, cantidad, actual);
+        } catch (error) {
+            console.error(error);
+            mostrarToast("No se pudo verificar el stock. Intentá de nuevo.");
+        }
     });
-  }
-});
+}
+
+cargarDetalle();

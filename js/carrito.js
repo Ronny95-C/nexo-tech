@@ -37,12 +37,18 @@ function actualizarBadgeCarrito() {
 }
 
 // Agregar un producto respetando el stock disponible
-function agregarAlCarrito(productoId, cantidad = 1) {
+// "productoActual" es el producto recién consultado en Firestore; si no se pasa, se usa el arreglo local de respaldo
+function agregarAlCarrito(productoId, cantidad = 1, productoActual = null) {
     const listaProductos = typeof obtenerProductos === "function" ? obtenerProductos() : [];
-    const producto = listaProductos.find(p => String(p.id) === String(productoId));
+    const producto = productoActual || listaProductos.find(p => String(p.id) === String(productoId));
 
     if (!producto) {
         mostrarNotificacion("Producto no encontrado.", "danger");
+        return false;
+    }
+
+    if (producto.disponibilidad === false || producto.stock <= 0) {
+        mostrarNotificacion(`"${producto.nombre}" está agotado.`, "warning");
         return false;
     }
 
@@ -59,6 +65,7 @@ function agregarAlCarrito(productoId, cantidad = 1) {
 
     if (itemExistente) {
         itemExistente.cantidad = nuevaCantidad;
+        itemExistente.stock = producto.stock;
     } else {
         carrito.push({
             id: producto.id,

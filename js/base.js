@@ -63,14 +63,6 @@ function mostrarToast(mensaje) {
 document.addEventListener("DOMContentLoaded", () => {
   actualizarBadgeCarrito();
 
-  // Inicio de sesión: aún no disponible (Sprint 3)
-  const btnLogin = document.getElementById("btnLoginPlaceholder");
-  if (btnLogin) {
-    btnLogin.addEventListener("click", () => {
-      mostrarToast("El inicio de sesión estará disponible en el Sprint 3.");
-    });
-  }
-
   // Newsletter: suscripción simulada
   const formNewsletter = document.getElementById("formNewsletter");
   if (formNewsletter) {

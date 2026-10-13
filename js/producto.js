@@ -55,6 +55,7 @@ async function cargarDetalle() {
         cantidadInput.max = producto.stock;
     }
     contenedor.classList.remove("d-none");
+    document.dispatchEvent(new CustomEvent("producto-cargado", { detail: { id: producto.id } }));
 
     // Se vuelve a consultar el stock en el momento de agregar
     btnAgregar.addEventListener("click", async () => {

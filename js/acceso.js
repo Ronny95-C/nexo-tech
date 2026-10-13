@@ -3,10 +3,7 @@
 
 import { auth, db } from "./firebase/config.js";
 import {
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  updateProfile, 
-  onAuthStateChanged
+  createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
@@ -14,11 +11,20 @@ const formLogin = document.getElementById("formLogin");
 const formRegistro = document.getElementById("formRegistro");
 const alerta = document.getElementById("alertaAcceso");
 const tabs = document.querySelectorAll("[data-form]");
-let enProceso = false;
+let procesando = false;
 
+// Evita que la pantalla quede esperando para siempre si un servicio no responde
+function conTiempo(promesa, ms = 8000) {
+  return Promise.race([
+    promesa,
+    new Promise((_, rechazar) => setTimeout(() => rechazar(new Error("tiempo-agotado")), ms))
+  ]);
+}
+
+// Solo se permite volver a páginas locales conocidas (evita redirecciones externas)
 function destino() {
   const next = new URLSearchParams(window.location.search).get("next");
-  return /^[a-z]+\.html$/.test(next || "") ? next : "index.html";
+  return /^[a-z]+\.html(\?id=[\w-]+)?$/.test(next || "") ? next : "index.html";
 }
 
 function mostrarAlerta(mensaje, tipo = "danger") {
@@ -29,8 +35,7 @@ function limpiarAlerta() { alerta.className = "d-none"; alerta.textContent = "";
 
 function errorCampo(input, mensaje) {
   input.classList.add("is-invalid");
-  const elFeedback = input.parentElement.querySelector(".invalid-feedback");
-  if (elFeedback) elFeedback.textContent = mensaje;
+  input.parentElement.querySelector(".invalid-feedback").textContent = mensaje;
 }
 function limpiarErrores(form) {
   form.querySelectorAll(".is-invalid").forEach(i => i.classList.remove("is-invalid"));
@@ -66,10 +71,8 @@ if (new URLSearchParams(window.location.search).get("modo") === "registro") camb
 
 function bloquear(form, bloqueado, textoBoton) {
   const btn = form.querySelector("button[type=submit]");
-  if (btn) {
-    btn.disabled = bloqueado;
-    btn.textContent = bloqueado ? "Procesando..." : textoBoton;
-  }
+  btn.disabled = bloqueado;
+  btn.textContent = bloqueado ? "Procesando..." : textoBoton;
 }
 
 // ---------- Registro ----------
@@ -90,32 +93,30 @@ formRegistro.addEventListener("submit", async (e) => {
     errorCampo(pass, "Mínimo 8 caracteres, con al menos una letra y un número."); valido = false;
   }
   if (pass2.value !== pass.value) { errorCampo(pass2, "Las contraseñas no coinciden."); valido = false; }
-  
   if (!valido) return;
 
-  enProceso = true;
+  procesando = true;
   bloquear(formRegistro, true, "Crear cuenta");
-
   try {
     const cred = await createUserWithEmailAndPassword(auth, email.value.trim(), pass.value);
-    
-    // Guardamos nombre en el perfil de Auth
     await updateProfile(cred.user, { displayName: nombre.value.trim() });
-    
-    // Guardamos documento completo en Firestore
-    await setDoc(doc(db, "usuarios", cred.user.uid), {
-      uid: cred.user.uid,
-      nombre: nombre.value.trim(),
-      email: cred.user.email,
-      rol: "cliente",
-      fechaRegistro: serverTimestamp()
-    });
-
+    try {
+      await conTiempo(setDoc(doc(db, "usuarios", cred.user.uid), {
+        uid: cred.user.uid,
+        nombre: nombre.value.trim(),
+        email: cred.user.email,
+        rol: "cliente",
+        fechaRegistro: serverTimestamp()
+      }));
+    } catch (errDoc) {
+      // La cuenta ya existe; el documento se vuelve a crear al entrar en perfil.html
+      console.error("No se pudo crear el documento del usuario en Firestore:", errDoc);
+    }
     window.location.href = destino();
   } catch (error) {
-    console.error("Error en registro:", error);
+    console.error(error);
     mostrarAlerta(traducirError(error));
-    enProceso = false;
+    procesando = false;
     bloquear(formRegistro, false, "Crear cuenta");
   }
 });
@@ -132,26 +133,22 @@ formLogin.addEventListener("submit", async (e) => {
   let valido = true;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { errorCampo(email, "Ingresá un correo electrónico válido."); valido = false; }
   if (!pass.value) { errorCampo(pass, "Ingresá tu contraseña."); valido = false; }
-  
   if (!valido) return;
 
-  enProceso = true;
+  procesando = true;
   bloquear(formLogin, true, "Iniciar sesión");
-
   try {
     await signInWithEmailAndPassword(auth, email.value.trim(), pass.value);
     window.location.href = destino();
   } catch (error) {
-    console.error("Error en login:", error);
+    console.error(error);
     mostrarAlerta(traducirError(error));
-    enProceso = false;
+    procesando = false;
     bloquear(formLogin, false, "Iniciar sesión");
   }
 });
 
-// Solo redirige automáticamente si la sesión ya estaba iniciada previamente
+// Si ya hay sesión, no tiene sentido ver el formulario
 onAuthStateChanged(auth, (user) => {
-  if (user && !enProceso) {
-    window.location.replace(destino());
-  }
+  if (user && !procesando) window.location.replace(destino());
 });

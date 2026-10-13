@@ -5,7 +5,7 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import { initializeFirestore } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAcWdirTDFzdMRxzqEOXkyG-TteptAYUK0",
@@ -19,4 +19,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app); // por defecto la sesión persiste al recargar (IndexedDB)
-export const db = getFirestore(app);
+// Algunas redes, antivirus o extensiones bloquean la conexión por defecto y Firestore queda "esperando".
+// Con esta opción detecta el problema y cambia solo a una conexión alternativa (long-polling).
+export const db = initializeFirestore(app, { experimentalAutoDetectLongPolling: true });

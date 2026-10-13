@@ -52,6 +52,8 @@
         <h1 class="fw-bold mb-4">Carrito de Compras</h1>
 
         <!-- Mensaje de Carrito Vacío -->
+        <div id="resultadoCompra" class="d-none" role="alert" aria-live="polite"></div>
+
         <div id="carritoVacio" class="alert alert-info text-center py-5 d-none" role="alert">
             <h4 class="alert-heading fw-bold"><i class="bi bi-cart-x me-2"></i>Tu carrito está vacío</h4>
             <p class="mb-3 text-secondary">Aún no has agregado ningún producto a tu lista de compra.</p>
@@ -108,7 +110,7 @@
                         Finalizar Compra
                     </button>
                     <p class="small text-secondary text-center mt-3 mb-0">
-                        <i class="bi bi-info-circle me-1"></i>Compra simulada: el pago y el pedido se habilitarán en el próximo sprint.
+                        <i class="bi bi-info-circle me-1"></i>Para finalizar la compra necesitás tener la sesión iniciada. Al confirmar se registra tu pedido y se descuenta el stock.
                     </p>
                 </div>
             </div>
@@ -138,6 +140,7 @@
     <script src="js/base.js"></script>
     <script type="module" src="js/auth.js"></script>
     <script src="js/carrito.js"></script>
+    <script type="module" src="js/checkout.js"></script>
 </body>
 
 </html>

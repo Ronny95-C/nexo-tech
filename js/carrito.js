@@ -206,12 +206,4 @@ function renderizarPaginaCarrito() {
 document.addEventListener("DOMContentLoaded", () => {
     actualizarBadgeCarrito();
     renderizarPaginaCarrito();
-
-    // Finalizar compra: funcionalidad simulada en esta etapa
-    const btnFinalizar = document.getElementById("btnFinalizarCompra");
-    if (btnFinalizar) {
-        btnFinalizar.addEventListener("click", () => {
-            mostrarNotificacion("Compra simulada: el procesamiento de pedidos se incorporará en el Sprint 3.", "info");
-        });
-    }
 });

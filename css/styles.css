@@ -127,3 +127,19 @@ select:focus-visible {
     font-size: 2rem;
   }
 }
+
+/* Acceso y perfil (Sprint 3) */
+.auth-card { max-width: 460px; }
+
+.perfil-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-cyan) 100%);
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 700;
+}

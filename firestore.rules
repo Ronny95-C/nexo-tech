@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function iniciada() { return request.auth != null; }
+    function esAdmin() {
+      return iniciada() &&
+        get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.rol == 'admin';
+    }
+
+    // Usuarios: cada uno lee y modifica solo su documento; no puede cambiar su propio rol
+    match /usuarios/{uid} {
+      allow read: if iniciada() && request.auth.uid == uid;
+      allow create: if iniciada() && request.auth.uid == uid && request.resource.data.rol == 'cliente';
+      allow update: if iniciada() && request.auth.uid == uid && request.resource.data.rol == resource.data.rol;
+    }
+
+    // Productos: lectura pública. Un cliente solo puede DESCONTAR stock (compra);
+    // crear, borrar o editar otros datos queda reservado a administradores.
+    match /productos/{id} {
+      allow read: if true;
+      allow update: if iniciada()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stock', 'disponibilidad'])
+        && request.resource.data.stock >= 0
+        && request.resource.data.stock <= resource.data.stock;
+      allow create, update, delete: if esAdmin();
+    }
+
+    // Pedidos: se crean a nombre propio; los lee su dueño o un administrador; no se modifican ni borran
+    match /pedidos/{id} {
+      allow create: if iniciada() && request.resource.data.uid == request.auth.uid;
+      allow read: if iniciada() && (resource.data.uid == request.auth.uid || esAdmin());
+      allow update, delete: if false;
+    }
+
+    // Valoraciones: lectura pública; un documento por usuario y producto, con puntuación y comentario válidos
+    match /valoraciones/{id} {
+      allow read: if true;
+      allow create, update: if iniciada()
+        && request.resource.data.uid == request.auth.uid
+        && id == request.resource.data.productoId + '_' + request.auth.uid
+        && request.resource.data.puntuacion is int
+        && request.resource.data.puntuacion >= 1 && request.resource.data.puntuacion <= 5
+        && request.resource.data.comentario is string
+        && request.resource.data.comentario.size() >= 3
+        && request.resource.data.comentario.size() <= 500;
+      allow delete: if iniciada() && resource.data.uid == request.auth.uid;
+    }
+  }
+}

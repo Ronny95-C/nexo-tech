@@ -52,6 +52,7 @@
         <div id="perfilError" class="alert alert-danger d-none" role="alert"></div>
 
         <section id="perfilContenido" class="d-none" aria-labelledby="tituloDatos">
+            <div id="perfilAviso" class="alert alert-warning d-none" role="alert"></div>
             <div class="card border-0 shadow-sm rounded-4 p-4">
                 <div class="d-flex align-items-center gap-3 mb-4">
                     <span class="perfil-avatar" id="perfilInicial" aria-hidden="true">N</span>
@@ -66,6 +67,11 @@
                     <dt class="col-sm-4">Miembro desde</dt><dd class="col-sm-8" id="perfilFecha"></dd>
                     <dt class="col-sm-4">ID de usuario</dt><dd class="col-sm-8 small text-break" id="perfilUid"></dd>
                 </dl>
+            </div>
+
+            <div class="mt-5">
+                <h2 class="h4 fw-bold mb-3" id="tituloPedidos">Mis pedidos</h2>
+                <div id="pedidosLista" aria-live="polite"></div>
             </div>
         </section>
     </main>

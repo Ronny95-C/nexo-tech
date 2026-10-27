@@ -143,3 +143,6 @@ select:focus-visible {
   font-size: 1.5rem;
   font-weight: 700;
 }
+
+/* El enlace "Administración" solo se muestra a administradores (lo activa js/auth.js) */
+.nav-item:has(> a[data-page="admin"]):not(.es-admin) { display: none; }

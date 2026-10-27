@@ -2,6 +2,7 @@
 // Se carga en todas las páginas: actualiza el navbar según el estado de la sesión.
 
 import { auth } from "./firebase/config.js";
+import { esAdministrador } from "./roles.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 function escapar(texto) {
@@ -43,4 +44,13 @@ function renderNavbar(user) {
   });
 }
 
-onAuthStateChanged(auth, renderNavbar);
+// El enlace "Administración" solo es visible para administradores (ver css/styles.css)
+async function actualizarEnlaceAdmin(user) {
+  const li = document.querySelector('a[data-page="admin"]')?.closest("li");
+  if (li) li.classList.toggle("es-admin", await esAdministrador(user));
+}
+
+onAuthStateChanged(auth, (user) => {
+  renderNavbar(user);
+  actualizarEnlaceAdmin(user);
+});

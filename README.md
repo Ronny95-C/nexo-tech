@@ -196,7 +196,7 @@ Cuentas creadas solo para evaluar el proyecto (no son personales):
 Nexo Tech es una tienda en línea de hardware, robótica y periféricos para makers y estudiantes de Uruguay. Este sprint cierra el proyecto con una diferenciación básica de usuarios, un panel administrativo para gestionar productos y las reglas de seguridad de Firestore.
 
 ### Sitio publicado
-**Enlace público:** https://ronny95-c.github.io/nexo-tech/ *(completar con la dirección definitiva al publicar)*
+**Enlace público:** https://ronny95-c.github.io/nexo-tech/ 
 
 ### Funcionalidades principales
 * Catálogo con búsqueda, filtros y orden, y detalle de cada producto.

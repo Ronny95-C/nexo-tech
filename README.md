@@ -137,6 +137,7 @@ Deserialización (JSON.parse): Recupera los artículos guardados al cargar cualq
 * Validación de disponibilidad y stock antes de agregar al carrito.
 * Confirmación de compra con pedidos registrados en Firestore y descuento de stock.
 * Valoraciones (1 a 5 estrellas) y comentarios por producto, asociados al usuario autenticado.
+* Panel administrativo (`admin.html`), visible solo para administradores: alta, edición, baja y eliminación de productos, stock y disponibilidad, y consulta de pedidos.
 * Reglas de seguridad de Firestore (`firestore.rules`).
 
 ### Organización de los archivos JavaScript
@@ -154,6 +155,8 @@ js/
 ├── checkout.js             # Botón "Finalizar Compra"
 ├── pedidos.js              # Transacción de compra y consulta de pedidos
 ├── valoraciones.js         # Valoraciones y comentarios
+├── roles.js                # Validación de rol (admin)
+├── admin.js                # Panel administrativo
 ├── seed-productos.js       # Carga inicial de productos (uso único)
 └── base.js                 # Utilidades comunes y arreglo local de respaldo
 ```
@@ -181,15 +184,50 @@ js/
 ### Usuarios de prueba
 Cuentas creadas solo para evaluar el proyecto (no son personales):
 
-| Correo | Contraseña |
-|---|---|
-| cliente1@nexotech.test | Prueba2026 |
-| cliente2@nexotech.test | Prueba2026 |
+| Rol | Correo | Contraseña |
+|---|---|---|
+| Cliente | cliente1@nexotech.test | Prueba2026 |
+| Cliente | cliente2@nexotech.test | Prueba2026 |
+| Administrador | admin1@nexotech.test | Prueba2026 |
 
-### Roles y recarga de productos
-* Cada usuario nuevo se crea con `rol: "cliente"`. Un cliente no puede cambiar su propio rol por las reglas de seguridad.
-* Para volver a cargar productos con `cargar-productos.html` hay que usar una cuenta con `rol: "admin"` (se cambia a mano en la consola de Firebase).
+## Sprint 4 · Roles, panel administrativo y publicación
 
-### Funcionalidades pendientes
-* Panel de administración funcional (`admin.html` conserva su aviso de funcionalidad en desarrollo).
-* Cambio de estado de los pedidos.
+### De qué trata
+Nexo Tech es una tienda en línea de hardware, robótica y periféricos para makers y estudiantes de Uruguay. Este sprint cierra el proyecto con una diferenciación básica de usuarios, un panel administrativo para gestionar productos y las reglas de seguridad de Firestore.
+
+### Sitio publicado
+**Enlace público:** https://ronny95-c.github.io/nexo-tech/ *(completar con la dirección definitiva al publicar)*
+
+### Funcionalidades principales
+* Catálogo con búsqueda, filtros y orden, y detalle de cada producto.
+* Carrito con control de stock y confirmación de compra con pedidos registrados.
+* Registro, inicio y cierre de sesión; perfil con los pedidos propios.
+* Valoraciones y comentarios por producto.
+* Panel administrativo (`admin.html`).
+
+### Tecnologías y servicios
+HTML, CSS, Bootstrap 5 y JavaScript (módulos ES); Firebase Authentication y Cloud Firestore; GitHub Pages para la publicación.
+
+### Roles
+* **cliente:** se asigna automáticamente a quien se registra (el formulario no permite elegir otro rol). Puede navegar, comprar, ver sus pedidos y valorar productos.
+* **admin:** se asigna manualmente en la consola de Firebase (Firestore Database → `usuarios` → campo `rol`). Ve el enlace "Administración" en el menú y puede usar el panel.
+* Un cliente que escriba `admin.html` en la barra de direcciones ve un mensaje de acceso restringido y es redirigido al inicio. La protección real está en `firestore.rules`: un cliente no puede cambiar su propio rol ni modificar productos.
+
+### Qué puede hacer el administrador
+* Ver la lista de productos con nombre, categoría, precio, stock y disponibilidad.
+* Crear productos y editar los existentes (con validación de nombre, categoría, precio y stock).
+* Dar de baja o reactivar un producto con el interruptor "Disponible", y eliminarlo definitivamente.
+* Consultar los pedidos de todos los clientes.
+
+Los cambios se reflejan de inmediato en el catálogo, porque ambos leen la colección `productos` de Firestore.
+
+### Reglas de seguridad (resumen)
+* Los productos se pueden leer sin iniciar sesión y solo los administradores los crean, editan o eliminan. Un cliente únicamente descuenta stock al comprar.
+* Cada usuario lee solo sus pedidos; el administrador puede leerlos todos.
+* Cada usuario lee y modifica solo su propio documento de `usuarios`, sin poder cambiar su rol.
+
+### Limitaciones conocidas
+* No hay recuperación de contraseña ni verificación de correo.
+* El pago no existe: la compra solo registra el pedido.
+* El administrador no puede cambiar el estado de los pedidos ni gestionar usuarios o comentarios.
+* Las imágenes de algunos productos pueden no coincidir exactamente con el artículo.
